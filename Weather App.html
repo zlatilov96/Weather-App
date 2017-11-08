@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Weather App</title>
+</head>
+
+<style>
+
+h3 {
+text-align: center;
+}
+
+.app {
+background-image: url('http://bgfons.com/upload/sky_texture1973.jpg');
+text-align: center;
+font-size: 20px;
+color: white;
+font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+padding-top: 20px;
+padding-bottom: 2px;
+width: 400px;
+height: 290px;
+margin-left: auto;
+margin-right: auto;
+border: 3px solid #00008B;
+border-radius: 6px;
+}
+
+#location {
+font-size: 30px;
+padding-top: 15px;
+padding-bottom: 10px;
+}
+
+#temperature {
+font-size: 30px;
+}
+
+#icon {
+padding-top: 10px;
+margin-left: auto;
+margin-right: auto;
+height: 80px;
+width: 80px;
+}
+
+#clouds {
+padding-top: 20px;
+padding-bottom: 10px;
+}
+
+</style>
+
+<body>
+
+<div id="rawdata"></div>
+
+<script>
+
+// Load raw data - First
+
+function rawData() {
+
+    var url = "http://api.openweathermap.org/data/2.5/weather?q=Helsinki%20&units=metric&mode=JSON&APPID=60ed63ad8e6a4a4727ac1974b92a95e6";
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+    
+	xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			document.getElementById("rawdata").innerHTML = "Raw data (Helsinki): " + "<br> <br>" + xmlhttp.responseText + "<br> <br>";
+		}
+	}
+}
+
+// Parsing data into div - Second
+
+var url = "http://api.openweathermap.org/data/2.5/weather?q=Helsinki%20&units=metric&mode=JSON&APPID=60ed63ad8e6a4a4727ac1974b92a95e6";
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var parse = JSON.parse(xmlhttp.responseText);
+		data = JSON.parse(xmlhttp.responseText);
+		
+		var location = data.name + ", " + data.sys.country +  "<br>";
+		document.getElementById('location').innerHTML = location;
+		
+		var temperature = data.main.temp + "&#8451" + "<br>";
+		document.getElementById('temperature').innerHTML = temperature;
+		
+		var clouds = "Clouds: " + data.clouds.all + "% " + " (" + data.weather[0].description + ") " + "<br>";
+		document.getElementById('clouds').innerHTML = clouds;
+		
+		var humidity = "Humidity: " + data.main.humidity + "% " + "<br>";
+		document.getElementById('humidity').innerHTML = humidity;
+		
+		var icon = document.getElementById('icon');
+		var pic = "http://openweathermap.org/img/w/";
+		var iconName = data.weather[0].icon;
+		var format = ".png";
+
+		icon.src = pic + iconName + format;
+		
+    }
+}
+
+// Pulldown menu - Third
+
+function changeCity() {
+
+var city = document.getElementById('city').value;
+var location = document.getElementById('location');
+
+	// City - Stockholm
+	if (city == "Stockholm") {
+
+	var url = "http://api.openweathermap.org/data/2.5/weather?q=Stockholm%20&units=metric&mode=JSON&APPID=60ed63ad8e6a4a4727ac1974b92a95e6";
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+
+		xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var parse = JSON.parse(xmlhttp.responseText);
+			data = JSON.parse(xmlhttp.responseText);
+				
+			var location = data.name + ", " + data.sys.country + "<br>";
+			document.getElementById('location').innerHTML = location;
+				
+			var temperature = data.main.temp + "&#8451" + "<br>";
+			document.getElementById('temperature').innerHTML = temperature;
+				
+			var clouds = "Clouds: " + data.clouds.all + "% " + " (" + data.weather[0].description + ") " + "<br>";
+			document.getElementById('clouds').innerHTML = clouds;
+				
+			var humidity = "Humidity: " + data.main.humidity + "% " + "<br>";
+			document.getElementById('humidity').innerHTML = humidity;
+			
+			var icon = document.getElementById('icon');
+			var pic = "http://openweathermap.org/img/w/";
+			var iconName = data.weather[0].icon;
+			var format = ".png";
+
+			icon.src = pic + iconName + format;
+			
+			}
+		}
+	}
+	
+	// City - Rome
+	if (city == "Rome") {
+
+	var url = "http://api.openweathermap.org/data/2.5/weather?q=Rome%20&units=metric&mode=JSON&APPID=60ed63ad8e6a4a4727ac1974b92a95e6";
+	var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+
+		xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var parse = JSON.parse(xmlhttp.responseText);
+			data = JSON.parse(xmlhttp.responseText);
+				
+			var location = data.name + ", " + data.sys.country + "<br>";
+			document.getElementById('location').innerHTML = location;
+				
+			var temperature = data.main.temp + "&#8451" + "<br>";
+			document.getElementById('temperature').innerHTML = temperature;
+				
+			var clouds = "Clouds: " + data.clouds.all + "% " + " (" + data.weather[0].description + ") " + "<br>";
+			document.getElementById('clouds').innerHTML = clouds;
+				
+			var humidity = "Humidity: " + data.main.humidity + "% " + "<br>";
+			document.getElementById('humidity').innerHTML = humidity;
+			
+			var icon = document.getElementById('icon');
+			var pic = "http://openweathermap.org/img/w/";
+			var iconName = data.weather[0].icon;
+			var format = ".png";
+
+			icon.src = pic + iconName + format;
+
+			}
+		}
+	}
+	
+	// City - New York
+	if (city == "New York") {
+
+	var url = "http://api.openweathermap.org/data/2.5/weather?q=NewYork%20&units=metric&mode=JSON&APPID=60ed63ad8e6a4a4727ac1974b92a95e6";
+	var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+
+		xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var parse = JSON.parse(xmlhttp.responseText);
+			data = JSON.parse(xmlhttp.responseText);
+				
+			var location = data.name + ", " + data.sys.country + "<br>";
+			document.getElementById('location').innerHTML = location;
+				
+			var temperature = data.main.temp + "&#8451" + "<br>";
+			document.getElementById('temperature').innerHTML = temperature;
+				
+			var clouds = "Clouds: " + data.clouds.all + "% " + " (" + data.weather[0].description + ") " + "<br>";
+			document.getElementById('clouds').innerHTML = clouds;
+				
+			var humidity = "Humidity: " + data.main.humidity + "% " + "<br>";
+			document.getElementById('humidity').innerHTML = humidity;
+			
+			var icon = document.getElementById('icon');
+			var pic = "http://openweathermap.org/img/w/";
+			var iconName = data.weather[0].icon;
+			var format = ".png";
+
+			icon.src = pic + iconName + format;
+
+			}
+		}
+	}
+
+	// City - Helsinki (again)
+	if (city == "Helsinki") {
+
+	var url = "http://api.openweathermap.org/data/2.5/weather?q=Helsinki%20&units=metric&mode=JSON&APPID=60ed63ad8e6a4a4727ac1974b92a95e6";
+	var xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+
+		xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			var parse = JSON.parse(xmlhttp.responseText);
+			data = JSON.parse(xmlhttp.responseText);
+				
+			var location = data.name + ", " + data.sys.country + "<br>";
+			document.getElementById('location').innerHTML = location;
+				
+			var temperature = data.main.temp + "&#8451" + "<br>";
+			document.getElementById('temperature').innerHTML = temperature;
+				
+			var clouds = "Clouds: " + data.clouds.all + "% " + " (" + data.weather[0].description + ") " + "<br>";
+			document.getElementById('clouds').innerHTML = clouds;
+				
+			var humidity = "Humidity: " + data.main.humidity + "% " + "<br>";
+			document.getElementById('humidity').innerHTML = humidity;
+				
+			var icon = document.getElementById('icon');
+			var pic = "http://openweathermap.org/img/w/";
+			var iconName = data.weather[0].icon;
+			var format = ".png";
+
+			icon.src = pic + iconName + format;
+
+			}
+		}
+	}
+} // End of chooseCity()
+
+// Own Search - Fourth
+
+function ownSearch() {
+
+var api = "http://api.openweathermap.org/data/2.5/weather?q=";
+var city = document.getElementById('citysearch').value;
+var rest = "%20&units=metric&mode=JSON&APPID=60ed63ad8e6a4a4727ac1974b92a95e6";
+var url = api+city+rest;
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+
+xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var parse = JSON.parse(xmlhttp.responseText);
+		data = JSON.parse(xmlhttp.responseText);
+		
+		var location = data.name + ", " + data.sys.country + "<br>";
+		document.getElementById('location').innerHTML = location;
+		
+		var temperature = data.main.temp + "&#8451" + "<br>";
+		document.getElementById('temperature').innerHTML = temperature;
+		
+		var clouds = "Clouds: " + data.clouds.all + "% " + " (" + data.weather[0].description + ") " + "<br>";
+		document.getElementById('clouds').innerHTML = clouds;
+		
+		var humidity = "Humidity: " + data.main.humidity + "% " + "<br>";
+		document.getElementById('humidity').innerHTML = humidity;
+		
+		var icon = document.getElementById('icon');
+		var pic = "http://openweathermap.org/img/w/";
+		var iconName = data.weather[0].icon;
+		var format = ".png";
+
+		icon.src = pic + iconName + format;
+		
+		}
+	}
+}
+
+</script>
+
+<h2>Weather App</h2>
+
+<li>First develop the app to display raw weather information (Temperature, Clouds, Humidity, Icon) on one spesific city, when the button is clicked. <button onclick="rawData()">Get data</button> </li>
+<li>When you achieve this, then parse the data and output it to div</li>
+<li>When you have achieved this, implement an onchange-event on the pulldown menu, which will allow the user to select which city's data will be shown from a list of cities</li>
+<li>When you have completed this, add functionality to an input field, in which the user can write search queries which are sent to the OpenWeatherMap API and the system will run a search query which is retuned to your app.</li>
+  <p>Select a city from the list:
+  <select name="mySelect" id="city" onchange="changeCity()">
+    <option value="Helsinki">Helsinki</option>
+    <option value="Stockholm">Stockholm</option>
+    <option value="Rome">Rome</option>
+    <option value="New York">New York</option>
+  </select>
+<br/>
+
+Or type in a search query: <input id="citysearch"></input><button onclick="ownSearch()" id="search">Search</button>
+
+<hr>
+
+<h3>Weather data goes here..</h3>
+
+<div class="app">
+	<div id="location"></div>
+	<div id="temperature"></div>
+	<div id="clouds"></div>
+	<div id="humidity"></div>
+	<div><img src="#" id="icon"></div>
+</div>
+
+</body>
+</html>
